@@ -25,6 +25,13 @@ Route::post('/register', [UserController::class, 'store']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/forgot-password', [UserController::class, 'forgotPassword']);
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/mua-san-pham/{productId}', [App\Http\Controllers\client\BuyProductController::class, 'buyProduct']);
+    Route::post('/mua-san-pham', [App\Http\Controllers\client\BuyProductController::class, 'buyMultipleProducts']);
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [App\Http\Controllers\client\OrderController::class, 'index']);
+        Route::get('/{id}', [App\Http\Controllers\client\OrderController::class, 'show']);
+        Route::delete('/{id}', [App\Http\Controllers\client\OrderController::class, 'destroy']);
+    });
     Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index']);
         Route::post('/', [CategoryController::class, 'store']);

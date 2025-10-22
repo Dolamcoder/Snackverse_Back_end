@@ -35,4 +35,7 @@ class User extends Authenticatable
     public function getAddress(){
         return $this->hasMany(ShippingAddress::class, 'user_id', 'id');
     }
+    public function orders(){
+        return $this->hasMany(Order::class, 'user_id', 'id');
+    }
 }
